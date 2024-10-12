@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct SidebarItemDropDelegate: DropDelegate {
+struct XSidebarItemDropDelegate: DropDelegate {
 	let itemID: String?
 	@Binding var draggedID: String?
 	@Binding var highlight: Bool
@@ -42,6 +42,11 @@ struct SidebarItemDropDelegate: DropDelegate {
 			return false
 		}
 		highlight = false
+		if itemManager.isDragging {
+//			itemManager.restoreToOriginalPosition()
+			itemManager.clearOriginalPosition()
+		}
+		print("SidebarItemDropDelegate \(String(describing: itemID)) performDrop exit")
 		return true
 	}
 	
@@ -52,6 +57,32 @@ struct SidebarItemDropDelegate: DropDelegate {
 	func dropEntered(info: DropInfo) {
 		print("SidebarItemDropDelegate \(String(describing: itemID)) dropEntered")
 		highlight = true
+		
+		if let itemID {
+			if itemManager.isDragging {
+				if let leadingIndex = itemManager.leadingItemIndexForID(itemID) {
+					itemManager.clearAllOriginals()
+					print("DetailItemDropDelegate \(itemID) inserting at \(leadingIndex)")
+					withAnimation {
+						itemManager.insertOriginalItem(at: leadingIndex, location: .leading)
+					}
+				} else {
+					print("DetailItemDropDelegate \(itemID) dropEntered -- why are we here?")
+				}
+			} else { // dragging not set up yet
+				if let leadingIndex = itemManager.leadingItemIndexForID(itemID) {
+					print("SidebarItemDropDelegate \(String(describing: itemID))  \(itemManager.positionInfo)")
+					withAnimation {
+						itemManager.removeForID(itemID)  // TEMP --
+					}
+					itemManager.setOriginalPosition(.leading, index: leadingIndex, item: Item(id: itemID))
+				} else if let trailingIndex = itemManager.trailingItemIndexForID(itemID) {
+					print("SidebarItemDropDelegate \(String(describing: itemID)) index is nil")
+					itemManager.insertOriginalItem(at: trailingIndex, location: .leading)
+					return
+				}
+			}
+		}
 		
 		let provider = info.itemProviders(for: [.text])
 		guard let draggedItem = provider.first else {

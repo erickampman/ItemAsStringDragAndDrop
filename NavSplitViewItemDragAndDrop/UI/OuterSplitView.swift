@@ -14,7 +14,7 @@ struct OuterSplitView: View {
 		NavigationSplitView {
 			SidebarListView(itemManager: $itemManager)
 		} detail: {
-			DetailGridView(itemManager: $itemManager)
+			DetailBaseView(itemManager: $itemManager)
 		}
 	}
 }

@@ -25,9 +25,6 @@ struct SidebarListView: View {
 		.border(.blue)
 		.onDrop(of: [UTType.text],
 				delegate: SidebarContainerDropDelegate(highlight: $highlight, draggedID: $draggedItem, itemManager: $itemManager))
-//		.sheet(isPresented: $showAddSheet) {
-//			AddStringView(leadingStrings: $leadingStrings)
-//		}
     }
 }
 
