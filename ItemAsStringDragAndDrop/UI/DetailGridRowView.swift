@@ -9,7 +9,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct DetailGridRowView: View {
-	@State var dropDelegate = XDetailRowDropDelegate?.none
+	@State var dropDelegate = DetailRowDropDelegate?.none
 	@State var draggedItem: String?
 	@Binding var itemManager: ItemManager
 	@State var highlight: Bool = false

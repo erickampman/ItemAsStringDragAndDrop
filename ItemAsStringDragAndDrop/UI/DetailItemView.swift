@@ -11,6 +11,7 @@ import UniformTypeIdentifiers
 struct DetailItemView: View {
 	let item: Item
 	@Binding var itemManager: ItemManager
+	@State private var draggedItem: String?
 	@State private var highlight = false
 	@State private var showEditView = false
 
@@ -23,17 +24,18 @@ struct DetailItemView: View {
 				.cornerRadius(10)
 				.onDrop(of: [UTType.text],
 						delegate: DetailItemDropDelegate(itemID: item.id,
+														 draggedID: $draggedItem,
 														 highlight: $highlight,
 														 itemManager: $itemManager))
 				.onLongPressGesture {
 					showEditView.toggle()
 				}
-//			if highlight {
-//				Image(systemName: "lessthan")
-//					.resizable()
-//					.frame(width: 20, height: 36)
-//					.offset(x: 5)
-//			}
+			if highlight {
+				Image(systemName: "lessthan")
+					.resizable()
+					.frame(width: 20, height: 36)
+					.offset(x: 5)
+			}
 		}
 		.sheet(isPresented: $showEditView) {
 			DetailEditView()

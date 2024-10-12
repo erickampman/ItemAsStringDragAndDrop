@@ -8,7 +8,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct XDetailRowDropDelegate: DropDelegate {
+struct DetailRowDropDelegate: DropDelegate {
 	@Binding var highlight: Bool
 	@Binding var draggedID: String?
 	@Binding var itemManager: ItemManager
@@ -38,11 +38,6 @@ struct XDetailRowDropDelegate: DropDelegate {
 				print("DetailRowDropDelegate performDrop location missing")
 			}
 		}
-		if itemManager.isDragging && draggedID != nil {
-			itemManager.clearOriginalPosition()
-			itemManager.appendForID(draggedID!, to: .trailing)
-		}
-		
 		return true
 	}
 	

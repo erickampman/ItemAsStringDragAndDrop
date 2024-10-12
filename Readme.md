@@ -1,4 +1,4 @@
-#  NavSplitViewItemDragAndDrop
+#  ItemAsStringDragAndDrop
 
 - Although this is a multiplatform app, running this on an ipad I see that D&D does not work. Right now not too intersested in why. AFAIK the mac version works ok, including:
 	- Dragging from sidebar to detail
@@ -6,6 +6,7 @@
 	- Reordering in both detail and sidebar
 	- Appending from sidebar to detail by dragging to the right of existing items.
 	- Appending from detail to sidebar by dragging to the bottom of existing items.
+	
 
 - Strings are used as a proxy for the items being dragged. From the SidebarContainerDropDelegate comments:
 
