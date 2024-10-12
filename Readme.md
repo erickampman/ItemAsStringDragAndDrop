@@ -20,7 +20,7 @@
 
 	- A possible TODO would be to cover the entirety of the detail view with a view that does have a corresponding drop delegate. That way the item can be moved in dropEntered and that would give a nicer presentation. 
 	
-
+Forgot to split off other project from this one so there was a spurious commit that I reverted. FYI
 
 
 
